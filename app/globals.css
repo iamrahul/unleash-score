@@ -5,6 +5,18 @@
   --panel: rgba(0, 0, 0, 0.82);
   --line: rgba(255, 255, 255, 0.92);
   --ink: #0c2c02;
+  /* LED / calculator red for the digital score readout */
+  --led-red: #ff1f1f;
+}
+
+/* Seven-segment digital font (DSEG7 Classic) for the calculator-style scores */
+@font-face {
+  font-family: "DSEG7";
+  src: url("https://cdn.jsdelivr.net/npm/dseg@0.46.0/fonts/DSEG7-Classic/DSEG7Classic-Bold.woff2")
+    format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
 }
 
 * {
