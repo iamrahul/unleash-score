@@ -1,6 +1,6 @@
 :root {
   /* Bright chroma-lime green from the reference screen */
-  --green: #5fd11a;
+  --green: #00F500;
   --green-deep: #2f7a06;
   --panel: rgba(0, 0, 0, 0.82);
   --line: rgba(255, 255, 255, 0.92);

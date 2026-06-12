@@ -1,0 +1,285 @@
+.stage {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(20px, 3.2vw, 64px);
+  gap: clamp(14px, 2vw, 36px);
+  background: var(--green);
+}
+
+/* ---------- top bar ---------- */
+.topbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex: 0 0 auto;
+}
+
+.title {
+  font-family: "Archivo Black", "Archivo", sans-serif;
+  font-weight: 900;
+  font-size: clamp(28px, 4.6vw, 84px);
+  line-height: 0.92;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  text-transform: uppercase;
+  background: transparent;
+  border: none;
+  outline: none;
+  width: auto;
+  max-width: 60vw;
+  -webkit-text-stroke: 1.5px rgba(0, 0, 0, 0.35);
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.12);
+}
+
+/* reserved empty area for the logo (added separately) */
+.brandSlot {
+  width: clamp(120px, 22vw, 380px);
+  height: clamp(40px, 7vw, 120px);
+  flex: 0 0 auto;
+}
+
+/* ---------- panel ---------- */
+.panel {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  background: var(--panel);
+  border: 2px solid var(--line);
+  border-radius: clamp(14px, 1.6vw, 28px);
+  overflow: hidden;
+  min-height: 0;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+}
+
+.head {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  flex: 0 0 auto;
+  border-bottom: 2px solid var(--line);
+}
+
+.head .cell {
+  position: relative;
+  padding: clamp(12px, 1.6vw, 26px) clamp(16px, 2vw, 40px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.head .cell + .cell {
+  border-left: 2px solid var(--line);
+}
+
+.teamName {
+  font-family: "Archivo", sans-serif;
+  font-weight: 800;
+  font-size: clamp(20px, 2.6vw, 48px);
+  letter-spacing: 0.01em;
+  color: #fff;
+  text-align: center;
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  min-width: 0;
+}
+
+.teamName::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* ---------- body / scores ---------- */
+.body {
+  position: relative;
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 0;
+}
+
+.scoreCol {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+}
+
+.scoreCol + .scoreCol::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8%;
+  bottom: 8%;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.score {
+  font-family: "Archivo Black", "Archivo", sans-serif;
+  font-weight: 900;
+  font-size: clamp(80px, 20vw, 360px);
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  padding: 0;
+  font-variant-numeric: tabular-nums;
+  caret-color: var(--green);
+}
+
+/* +/- controls, revealed on hover when unlocked */
+.stepper {
+  position: absolute;
+  bottom: clamp(14px, 2.5vh, 40px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  pointer-events: none;
+}
+
+.scoreCol:hover .stepper.live {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.stepBtn {
+  width: clamp(40px, 4vw, 64px);
+  height: clamp(40px, 4vw, 64px);
+  border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: clamp(20px, 2vw, 30px);
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.12s ease, transform 0.06s ease;
+}
+
+.stepBtn:hover {
+  background: var(--green);
+  border-color: var(--green);
+  color: var(--ink);
+}
+
+.stepBtn:active {
+  transform: scale(0.92);
+}
+
+/* ---------- bottom label ---------- */
+.label {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(18px, 3vh, 48px);
+  transform: translateX(-50%);
+  font-family: "Archivo", sans-serif;
+  font-weight: 800;
+  font-size: clamp(16px, 1.9vw, 34px);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #fff;
+  text-align: center;
+  background: transparent;
+  border: none;
+  outline: none;
+  width: min(60vw, 480px);
+}
+
+/* ---------- lock + status chrome ---------- */
+.lockBtn {
+  position: fixed;
+  right: clamp(14px, 1.6vw, 28px);
+  bottom: clamp(14px, 1.6vw, 28px);
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(0, 0, 0, 0.25);
+  background: rgba(0, 0, 0, 0.18);
+  color: var(--ink);
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: background 0.12s ease, opacity 0.3s ease;
+}
+
+.lockBtn:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: #b8ff7a;
+  box-shadow: 0 0 0 0 rgba(184, 255, 122, 0.7);
+}
+
+.dot.on {
+  animation: pulse 1.8s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(184, 255, 122, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(184, 255, 122, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(184, 255, 122, 0);
+  }
+}
+
+.editable {
+  cursor: text;
+  border-radius: 8px;
+  transition: box-shadow 0.12s ease, background 0.12s ease;
+}
+
+.editable:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.editable:focus {
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: inset 0 0 0 2px rgba(0, 245, 0, 0.7);
+}
+
+.locked {
+  cursor: default;
+}
+
+.hint {
+  position: fixed;
+  left: 50%;
+  bottom: clamp(14px, 1.6vw, 28px);
+  transform: translateX(-50%);
+  z-index: 15;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: rgba(12, 44, 2, 0.7);
+  background: rgba(255, 255, 255, 0.22);
+  padding: 6px 14px;
+  border-radius: 999px;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}

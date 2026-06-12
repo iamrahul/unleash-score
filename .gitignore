@@ -10,3 +10,4 @@ reference.png
 next-env.d.ts
 
 .feature_stash
+.env*
