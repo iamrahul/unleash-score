@@ -17,7 +17,7 @@
 }
 
 .title {
-  font-family: "Bebas Neue", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: 900;
   font-size: clamp(28px, 4.6vw, 84px);
   line-height: 0.92;
@@ -74,9 +74,9 @@
 }
 
 .teamName {
-  font-family: "Bebas Neue", sans-serif;
-  font-weight: 800;
-  font-size: clamp(20px, 2.6vw, 48px);
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  font-size: clamp(30px, 4vw, 76px);
   letter-spacing: 0.01em;
   color: #fff;
   text-align: center;
@@ -108,18 +108,8 @@
   min-width: 0;
 }
 
-.scoreCol + .scoreCol::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 8%;
-  bottom: 8%;
-  width: 2px;
-  background: rgba(255, 255, 255, 0.18);
-}
-
 .score {
-  font-family: "DSEG7", "Bebas Neue", monospace;
+  font-family: "DSEG7", "Roboto", monospace;
   font-weight: 700;
   font-size: clamp(64px, 15vw, 280px);
   line-height: 1;
@@ -135,6 +125,25 @@
   text-shadow: 0 0 14px rgba(255, 31, 31, 0.55),
     0 0 36px rgba(255, 31, 31, 0.35);
   caret-color: var(--led-red);
+  /* Blink: visible 2s, hidden 0.5s (2.5s cycle) */
+  animation: scoreBlink 2.5s steps(1, end) infinite;
+}
+
+/* Keep the digits steady while someone is typing a score */
+.score:focus {
+  animation: none;
+  opacity: 1;
+}
+
+@keyframes scoreBlink {
+  0%,
+  80% {
+    opacity: 1;
+  }
+  80.01%,
+  100% {
+    opacity: 0;
+  }
 }
 
 /* +/- controls, revealed on hover when unlocked */
@@ -188,8 +197,8 @@
   left: 50%;
   bottom: clamp(18px, 3vh, 48px);
   transform: translateX(-50%);
-  font-family: "Bebas Neue", sans-serif;
-  font-weight: 800;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
   font-size: clamp(16px, 1.9vw, 34px);
   letter-spacing: 0.18em;
   text-transform: uppercase;
