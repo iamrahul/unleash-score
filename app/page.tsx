@@ -239,8 +239,7 @@ export default function Page() {
           }
           aria-label="Scoreboard title"
         />
-        {/* logo added separately — reserved empty slot */}
-        <div className={styles.brandSlot} aria-hidden />
+        <img src="/unleash.svg" alt="Logo" className={styles.brandSlot} aria-hidden />
       </div>
 
       <section className={styles.panel}>
