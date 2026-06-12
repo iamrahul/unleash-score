@@ -176,6 +176,10 @@ export default function Page() {
         toggleLock();
         return;
       }
+      if (e.key.toLowerCase() === "f") {
+        toggleFullscreen();
+        return;
+      }
       if (locked) return;
       switch (e.key.toLowerCase()) {
         case "q":
@@ -215,6 +219,41 @@ export default function Page() {
       localStorage.setItem("unleash-locked", next ? "1" : "0");
       return next;
     });
+  }, []);
+
+  // Fullscreen (with Safari/webkit fallback)
+  const [isFs, setIsFs] = useState(false);
+  useEffect(() => {
+    const onFs = () =>
+      setIsFs(
+        !!(document.fullscreenElement ||
+          // @ts-expect-error vendor-prefixed
+          document.webkitFullscreenElement)
+      );
+    document.addEventListener("fullscreenchange", onFs);
+    document.addEventListener("webkitfullscreenchange", onFs);
+    return () => {
+      document.removeEventListener("fullscreenchange", onFs);
+      document.removeEventListener("webkitfullscreenchange", onFs);
+    };
+  }, []);
+
+  const toggleFullscreen = useCallback(() => {
+    const el = document.documentElement as HTMLElement & {
+      webkitRequestFullscreen?: () => Promise<void>;
+    };
+    const doc = document as Document & {
+      webkitExitFullscreen?: () => Promise<void>;
+      webkitFullscreenElement?: Element;
+    };
+    const active = document.fullscreenElement || doc.webkitFullscreenElement;
+    if (!active) {
+      (el.requestFullscreen?.() ?? el.webkitRequestFullscreen?.())?.catch(
+        () => {}
+      );
+    } else {
+      doc.exitFullscreen?.() ?? doc.webkitExitFullscreen?.();
+    }
   }, []);
 
   const editProps = (field: string) => ({
@@ -327,6 +366,30 @@ export default function Page() {
         </div>
       </section>
 
+      <button
+        className={styles.fsBtn}
+        onClick={toggleFullscreen}
+        aria-label={isFs ? "Exit fullscreen" : "Enter fullscreen"}
+        title={isFs ? "Exit fullscreen (F)" : "Fullscreen (F)"}
+      >
+        {isFs ? (
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden>
+            <path
+              fill="currentColor"
+              d="M9 9V4H7v3H4v2h5zm6 0h5V7h-3V4h-2v5zM9 15H4v2h3v3h2v-5zm6 0v5h2v-3h3v-2h-5z"
+            />
+          </svg>
+        ) : (
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden>
+            <path
+              fill="currentColor"
+              d="M4 9V4h5v2H6v3H4zm11-5h5v5h-2V6h-3V4zM6 15v3h3v2H4v-5h2zm12 0h2v5h-5v-2h3v-3z"
+            />
+          </svg>
+        )}
+        {isFs ? "Exit" : "Fullscreen"}
+      </button>
+
       <button className={styles.lockBtn} onClick={toggleLock}>
         <span className={`${styles.dot} ${live ? styles.on : ""}`} />
         {locked ? "Locked · press E to edit" : "Editing · E to lock"}
@@ -334,7 +397,8 @@ export default function Page() {
 
       {!locked && (
         <div className={styles.hint}>
-          Q/A left · P/L right · R reset · E lock · click a number to type
+          Q/A left · P/L right · R reset · E lock · F fullscreen · click a
+          number to type
         </div>
       )}
     </main>
