@@ -1,0 +1,34 @@
+:root {
+  /* Bright chroma-lime green from the reference screen */
+  --green: #5fd11a;
+  --green-deep: #2f7a06;
+  --panel: rgba(0, 0, 0, 0.82);
+  --line: rgba(255, 255, 255, 0.92);
+  --ink: #0c2c02;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background: var(--green);
+  font-family: "Archivo", system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+input,
+button {
+  font-family: inherit;
+}

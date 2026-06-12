@@ -1,0 +1,12 @@
+node_modules
+.next
+out
+.env
+.env.local
+.vercel
+.DS_Store
+*.HEIC
+reference.png
+next-env.d.ts
+
+.feature_stash
