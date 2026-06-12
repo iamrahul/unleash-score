@@ -22,7 +22,7 @@ device and every connected display updates in real time.
 | `Q` / `A` | Left team +1 / −1 |
 | `P` / `L` | Right team +1 / −1 |
 | `R` | Reset both scores |
-| `L` | Toggle edit / lock |
+| `E` | Toggle edit / lock |
 
 Add `?edit=1` to the URL to open straight into edit mode.
 

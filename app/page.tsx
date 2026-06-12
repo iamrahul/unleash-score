@@ -172,7 +172,7 @@ export default function Page() {
     const onKey = (e: KeyboardEvent) => {
       const tag = (e.target as HTMLElement)?.tagName;
       if (tag === "INPUT" || tag === "TEXTAREA") return;
-      if (e.key.toLowerCase() === "l") {
+      if (e.key.toLowerCase() === "e") {
         toggleLock();
         return;
       }
@@ -329,12 +329,12 @@ export default function Page() {
 
       <button className={styles.lockBtn} onClick={toggleLock}>
         <span className={`${styles.dot} ${live ? styles.on : ""}`} />
-        {locked ? "Locked · press L to edit" : "Editing · L to lock"}
+        {locked ? "Locked · press E to edit" : "Editing · E to lock"}
       </button>
 
       {!locked && (
         <div className={styles.hint}>
-          Q/A · P/L adjust · R reset · click a number to type
+          Q/A left · P/L right · R reset · E lock · click a number to type
         </div>
       )}
     </main>
