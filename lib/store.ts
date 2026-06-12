@@ -24,11 +24,17 @@ const KEY = "unleash-score:state";
 
 // Upstash Redis when configured (Vercel / production), otherwise an
 // in-memory fallback so local dev works with zero setup.
-const hasRedis =
-  !!process.env.UPSTASH_REDIS_REST_URL &&
-  !!process.env.UPSTASH_REDIS_REST_TOKEN;
+// Supports both the Vercel KV-provisioned vars (KV_REST_API_*) and the
+// native Upstash vars (UPSTASH_REDIS_REST_*).
+const REDIS_URL =
+  process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
+const REDIS_TOKEN =
+  process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
 
-const redis = hasRedis ? Redis.fromEnv() : null;
+const redis =
+  REDIS_URL && REDIS_TOKEN
+    ? new Redis({ url: REDIS_URL, token: REDIS_TOKEN })
+    : null;
 
 let memory: ScoreState = { ...DEFAULT_STATE };
 

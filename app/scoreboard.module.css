@@ -17,7 +17,7 @@
 }
 
 .title {
-  font-family: "Archivo Black", "Archivo", sans-serif;
+  font-family: "Bebas Neue", sans-serif;
   font-weight: 900;
   font-size: clamp(28px, 4.6vw, 84px);
   line-height: 0.92;
@@ -38,6 +38,7 @@
   width: clamp(120px, 22vw, 380px);
   height: clamp(40px, 7vw, 120px);
   flex: 0 0 auto;
+  object-fit: contain;
 }
 
 /* ---------- panel ---------- */
@@ -73,7 +74,7 @@
 }
 
 .teamName {
-  font-family: "Archivo", sans-serif;
+  font-family: "Bebas Neue", sans-serif;
   font-weight: 800;
   font-size: clamp(20px, 2.6vw, 48px);
   letter-spacing: 0.01em;
@@ -118,7 +119,7 @@
 }
 
 .score {
-  font-family: "Archivo Black", "Archivo", sans-serif;
+  font-family: "Bebas Neue", sans-serif;
   font-weight: 900;
   font-size: clamp(80px, 20vw, 360px);
   line-height: 1;
@@ -184,7 +185,7 @@
   left: 50%;
   bottom: clamp(18px, 3vh, 48px);
   transform: translateX(-50%);
-  font-family: "Archivo", sans-serif;
+  font-family: "Bebas Neue", sans-serif;
   font-weight: 800;
   font-size: clamp(16px, 1.9vw, 34px);
   letter-spacing: 0.18em;

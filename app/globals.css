@@ -19,7 +19,7 @@ body {
   width: 100%;
   overflow: hidden;
   background: var(--green);
-  font-family: "Archivo", system-ui, -apple-system, sans-serif;
+  font-family: "Bebas Neue", system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
