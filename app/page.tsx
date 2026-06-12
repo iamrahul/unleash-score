@@ -37,6 +37,48 @@ export default function Page() {
   stateRef.current = state;
   const lastSentV = useRef(0);
 
+  // Confetti on score increases. Armed after first sync so it doesn't fire
+  // while the initial stored scores load in.
+  const prevScores = useRef<[number, number]>([0, 0]);
+  const confettiArmed = useRef(false);
+  const confettiFn = useRef<((opts: object) => void) | null>(null);
+
+  const fireConfetti = useCallback((side: 0 | 1) => {
+    const burst = (confetti: (opts: object) => void) => {
+      const x = side === 0 ? 0.25 : 0.75;
+      const angle = side === 0 ? 65 : 115;
+      const colors = ["#00F500", "#ffffff", "#ff1f1f", "#ff2d8b"];
+      confetti({
+        particleCount: 90,
+        spread: 72,
+        startVelocity: 48,
+        angle,
+        origin: { x, y: 0.62 },
+        colors,
+        scalar: 1.1,
+        ticks: 220,
+      });
+      confetti({
+        particleCount: 45,
+        spread: 110,
+        startVelocity: 30,
+        angle,
+        origin: { x, y: 0.62 },
+        colors,
+        scalar: 0.9,
+        ticks: 200,
+      });
+    };
+    if (confettiFn.current) burst(confettiFn.current);
+    else
+      import("canvas-confetti")
+        .then((m) => {
+          confettiFn.current = m.default as unknown as (opts: object) => void;
+          burst(confettiFn.current);
+        })
+        .catch(() => {});
+  }, []);
+
   // Apply a remote state without clobbering the field the user is typing in.
   const applyRemote = useCallback((incoming: State) => {
     if (incoming.v <= lastSentV.current) return; // ignore our own echoes
@@ -55,6 +97,35 @@ export default function Page() {
       }) as [Team, Team];
       return merged;
     });
+  }, []);
+
+  // Celebrate score increases (from steppers, keys, or remote updates), but
+  // not the field being actively typed in.
+  useEffect(() => {
+    const cur: [number, number] = [
+      state.teams[0].score,
+      state.teams[1].score,
+    ];
+    if (confettiArmed.current) {
+      ([0, 1] as const).forEach((i) => {
+        if (
+          cur[i] > prevScores.current[i] &&
+          focusedRef.current !== `team-${i}-score`
+        ) {
+          fireConfetti(i);
+        }
+      });
+    }
+    prevScores.current = cur;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.teams[0].score, state.teams[1].score]);
+
+  // Arm shortly after mount so the initial score sync doesn't trigger it.
+  useEffect(() => {
+    const t = setTimeout(() => {
+      confettiArmed.current = true;
+    }, 1500);
+    return () => clearTimeout(t);
   }, []);
 
   // Initial load + read lock preference.
